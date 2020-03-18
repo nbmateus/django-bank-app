@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Index</title>
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+ <!----> <link rel="stylesheet" href="/static/css/bootstrap-select.css">
+  <script src="/static/js/bs/jquery-3.4.1.js"></script>
+  <script src="/static/js/bs/bootstrap.bundle.min.js"></script>
+  <script src="/static/js/bs/bootstrap-select.min.js"></script>
+  <script src="/static/js/admin.js"></script>
+
+
+</head>
+
+<body>
+
+  
+  <form id="idAccForm" action="/home/createAccount/" method="POST"> {% csrf_token %}
+    <div id="idAccFormErrors" class="form-group"></div>
+    {{ accForm  }}
+
+    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <a href='/login/logout'>logout</a>
+</body>
+
+</html>

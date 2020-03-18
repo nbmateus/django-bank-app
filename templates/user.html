@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USER</title>
+</head>
+
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+ <script src="/static/js/bs/jquery-3.4.1.js"></script>
+ <script src="/static/js/bs/bootstrap.bundle.min.js"></script>
+ <script src="/static/js/user.js"></script>
+
+<body>
+    <h1>USER</h1>
+    <form id="idTransactionForm" action="/home/makeTransaction/" method="POST">{% csrf_token %}
+        <div id='idTransactionErrors'></div>
+        {{ transactionForm.as_p }}
+        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <a href='/login/logout'>logout</a>
+</body>
+</html>
