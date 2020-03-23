@@ -1,0 +1,31 @@
+<div class="card-group">
+{% for account in object_list %}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">NUMERO DE CUENTA: {{account.code}}</h5>
+        <p class="card-text">DOLARES: {{account.dollarBalance}} US$</p>
+        <p class="card-text">PESOS: {{account.pesoArBalance}} AR$</p>
+        <p class="card-text">EUROS: {{account.euBalance}} EU$</p>
+    </div>
+    <div class="card-footer">
+        <a href="home/transactions/{{account.code}}/">ver lista de transferencias</a><br>
+        <a href="home/actionslog/{{account.code}}/">ver lista de registros</a> 
+    </div>
+</div>
+
+{% empty %}
+
+
+<div class="card">
+    <div class="card-footer">
+        
+    </div>
+    <div class="card-body">
+        <h1 class="display-4">Aun no se ha creado una cuenta a tu nombre.</h1>
+    </div>
+    <div class="card-footer">
+        
+    </div>
+</div>
+{% endfor %}

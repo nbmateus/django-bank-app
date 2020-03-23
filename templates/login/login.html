@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankApp - Sesion</title>
+</head>
+
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<script src="/static/js/bs/jquery-3.4.1.js"></script>
+<script src="/static/js/bs/bootstrap.bundle.min.js"></script>
+<script src="/static/js/login/login.js"></script>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">BANK-APP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <!--
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Features</a>
+            <a class="nav-item nav-link" href="#">Pricing</a>
+            <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+            </div>
+        </div>
+    </nav>
+
+
+    <div align='center'>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login-content" role="tab"
+                                aria-controls="login-content" aria-selected="true">Iniciar Sesion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup-content" role="tab"
+                                aria-controls="signup-content" aria-selected="false">Registrarse</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- LOGIN-->
+
+                        <div class="tab-pane fade show active" id="login-content" role="tabpanel"
+                            aria-labelledby="login-tab">
+                            <form id="idLoginForm" action="/login/signIn/" method="POST" align='left'>{% csrf_token %}
+                                <div id="idLogFormErrors" class="form-group"></div>
+                                {{ logForm }}
+                                <div class="form-group"></div>
+                                <button id="idLogBtn" type="submit" name="submit" value="login"
+                                    class="btn btn-dark">Iniciar Sesion</button>
+                            </form>
+                        </div>
+
+                        <!-- SIGNUP-->
+
+                        <div class="tab-pane fade" id="signup-content" role="tabpanel" aria-labelledby="signup-tab">
+                            <form id="idRegForm" action="/login/signUp/" method="POST" align='left'>{% csrf_token %}
+                                <div id="idRegFormErrors" class="form-group"></div>
+                                {{ regForm }}
+                                <div class="form-group"></div>
+                                <button id="idRegBtn" type="submit" name="submit" value="register"
+                                    class="btn btn-dark">Registrarse</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <h1>INICIAR SESION</h1>
+    <form id='idLoginForm' action="/login/signIn/" method="POST">{% csrf_token %}
+        <div id='idLogFormErrors'></div>
+        {{ logForm }}
+        <button type="submit" name="submit">Submit</button>
+    </form>
+
+    <h1>REGISTRARSE</h1>
+    <form id='idRegForm' action="/login/signUp/" method="POST">{% csrf_token %}
+        <div id='idRegFormErrors'></div>
+        {{ regForm }}
+        <button type="submit" name="submit">Submit</button>-->
+    </form>
+
+</body>
+
+</html>

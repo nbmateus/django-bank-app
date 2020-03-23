@@ -6,8 +6,8 @@ from django.contrib.auth import authenticate
 
 class SignUpForm(forms.ModelForm):
     email = forms.CharField(max_length=30, label='Email', widget=forms.TextInput(attrs={'class':"form-control",'pattern':'[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$+'}))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control','pattern':'[a-zA-Z0-9]+'}))
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class':'form-control','pattern':'[a-zA-Z0-9]+'}))
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'class':'form-control','pattern':'[a-zA-Z0-9]+'}))
+    password2 = forms.CharField(label='Confirmar contraseña', widget=forms.PasswordInput(attrs={'class':'form-control','pattern':'[a-zA-Z0-9]+'}))
 
 
     class Meta:
@@ -18,7 +18,7 @@ class SignUpForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords must be the same.")
+            raise forms.ValidationError("Las contraseñas deben ser iguales.")
         return password2
 
     def save(self, commit=True):
@@ -30,12 +30,12 @@ class SignUpForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     email = forms.CharField(label='Email', widget=forms.TextInput(attrs={'class':"form-control"}))
-    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
     def clean(self):
         user = authenticate(email= self.cleaned_data.get('email'), password = self.cleaned_data.get('password'))
         if  user is None:
-            raise forms.ValidationError("Incorrect username or password.")
+            raise forms.ValidationError("Email o contraseña incorrecta.")
         return self.cleaned_data
 
 

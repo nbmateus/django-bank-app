@@ -9,7 +9,7 @@ from django.http import JsonResponse
 def login(request):
     if request.user.is_authenticated:
         return redirect('/')
-    return render(request, 'login.html', {'logForm':LoginForm(),'regForm':SignUpForm()})
+    return render(request, 'login/login.html', {'logForm':LoginForm(),'regForm':SignUpForm()})
 
 def signIn(request):
     logForm = LoginForm(request.POST)
