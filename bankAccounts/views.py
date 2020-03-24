@@ -77,7 +77,11 @@ class AccountTransactionList(LoginRequiredMixin, ListView):
     template_name = 'bankAccounts/accountTransactionList.html'
 
     def get_queryset(self):
-        return Transaction.objects.filter(senderAcc=Account.objects.get(code=self.kwargs['acc_id']))
+        account = Account.objects.get(code=self.kwargs['acc_id'])
+        if account and account in Account.objects.filter(users__email = self.request.user.email):
+            return Transaction.objects.filter(senderAcc=Account.objects.get(code=self.kwargs['acc_id']))
+        else:
+            return handler404(self.request, "page not found")
 
 class ActionsLogList(LoginRequiredMixin, ListView):
     login_url = '/login/'
@@ -93,11 +97,18 @@ class AccountActionsLogList(LoginRequiredMixin, ListView):
     template_name = 'bankAccounts/accountActionsLogList.html'
 
     def get_queryset(self):
-        return ActionsLog.objects.filter(account=Account.objects.get(code=self.kwargs['acc_id']))
+        account = Account.objects.get(code=self.kwargs['acc_id'])
+        if account and account in Account.objects.filter(users__email = self.request.user.email):
+            return ActionsLog.objects.filter(account=Account.objects.get(code=self.kwargs['acc_id']))
+        else:
+            return handler404(self.request, "page not found")
 
 
 def handler404(request, exception):
     return render(request, '404.html', status=404)
+
+def handler500(request):
+    return render(request, '500.html', status=500)
 """
 
 
