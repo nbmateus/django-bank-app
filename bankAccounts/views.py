@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_admin:
-            return render(request, template_name = 'bankAccounts/admin.html', context={'accForm':AccountForm(user=request.user)})
+            return render(request, template_name = 'bankAccounts/admin.html', context={'accForm':AccountForm(user=request.user), 'transactionForm':TransactionForm(user=request.user),'depositForm':DepositForm(user=request.user), 'extractionForm':ExtractionForm(user=request.user)})
         return render(request, 'bankAccounts/user.html', {'transactionForm':TransactionForm(user=request.user),'depositForm':DepositForm(user=request.user), 'extractionForm':ExtractionForm(user=request.user)})
     return redirect('/login')
 

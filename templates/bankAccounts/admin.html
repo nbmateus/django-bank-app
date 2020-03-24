@@ -1,34 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ADMIN</title>
+</head>
 
-  <title>Index</title>
-
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
  <!----> <link rel="stylesheet" href="/static/css/bootstrap-select.css">
   <script src="/static/js/bs/jquery-3.4.1.js"></script>
   <script src="/static/js/bs/bootstrap.bundle.min.js"></script>
   <script src="/static/js/bs/bootstrap-select.min.js"></script>
   <script src="/static/js/bankAccounts/admin.js"></script>
 
-
-</head>
-
 <body>
 
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">BANK-APP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{ request.user }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="">ver mis cuentas</a>
+            <a class="dropdown-item" href="/home/actionslog/">ver registros</a>
+            <a class="dropdown-item" href="/home/myTransactions/">ver transferencias</a>
+            <a class="dropdown-item" href="/login/logout/"> cerrar sesion</a>
+          </div>
+        </li>
+        <a class="nav-item nav-link" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+          transferir</a>
+        <a class="nav-item nav-link" type="button" data-toggle="modal" data-target="#exampleModalCenter2">
+          depositar</a>
+        <a class="nav-item nav-link" type="button" data-toggle="modal" data-target="#exampleModalCenter3">
+          extraer</a>
+        <a class="nav-item nav-link" type="button" data-toggle="modal" data-target="#exampleModalCenter4">
+          crear cuenta</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div id="idMyAccounts">
+
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Transaccion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="idTransactionForm" action="/home/makeTransaction/" method="POST">{% csrf_token %}
+            <div id='idTransactionErrors'></div>
+            {{ transactionForm.as_p }}
+            <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Depositar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="idDepositForm" action="/home/deposit/" method="POST">{% csrf_token %}
+            <div id='idDepositErrors'></div>
+            {{ depositForm.as_p }}
+            <button type="submit" name="submit" class="btn btn-primary">Enviar deposito</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Extraer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="idExtractionForm" action="/home/extraction/" method="POST">{% csrf_token %}
+            <div id='idExtractionErrors'></div>
+            {{ extractionForm.as_p }}
+            <button type="submit" name="submit" class="btn btn-primary">realizar
+              extraccion</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">crear cuenta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="idAccForm" action="/home/createAccount/" method="POST"> {% csrf_token %}
+            <div id="idAccFormErrors"></div>
+            {{ accForm  }}
+
+            <button type="submit" name="submit" class="btn btn-primary">guardar cuenta</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
   
-  <form id="idAccForm" action="/home/createAccount/" method="POST"> {% csrf_token %}
-    <div id="idAccFormErrors" class="form-group"></div>
-    {{ accForm  }}
-
-    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-  </form>
-
-  <a href='/login/logout'>logout</a>
 </body>
 
 </html>
